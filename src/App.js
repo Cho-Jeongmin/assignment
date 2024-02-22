@@ -1,5 +1,11 @@
+import Swiper from "./components/Swiper";
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div>
+      <Swiper />
+    </div>
+  );
 }
 
 export default App;
