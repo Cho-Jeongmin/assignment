@@ -17,7 +17,7 @@ function Swiper(props) {
   let sliderRef = useRef(null);
 
   const settings = {
-    infinite: true,
+    infinite: images.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -78,15 +78,20 @@ const Image = styled.img`
 `;
 
 const Navigator = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 334px;
   transform: translate(40px, -83px);
 `;
 
 const Tabs = styled.div`
+  width: 100%;
   display: flex;
 `;
 
 const Tab = styled.div`
-  width: 109px;
+  width: 100%;
   height: 0px;
   border: 2px solid white;
   opacity: ${(props) => !props.$active && "0.4"};
@@ -96,8 +101,9 @@ const Tab = styled.div`
 `;
 
 const Buttons = styled.div`
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  margin-top: 16px;
 `;
 
 const PageNum = styled.div`
