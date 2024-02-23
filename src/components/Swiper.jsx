@@ -37,8 +37,8 @@ function Swiper(props) {
           sliderRef = slider;
         }}
       >
-        {images.map((image) => (
-          <Image src={image} />
+        {images.map((image, index) => (
+          <Image src={image} key={index} />
         ))}
       </Slider>
       <Navigator>
@@ -47,6 +47,7 @@ function Swiper(props) {
             <Tab
               $active={index === activeSlide}
               onClick={(e) => sliderRef.slickGoTo(index)}
+              key={index}
             />
           ))}
         </Tabs>
@@ -70,6 +71,7 @@ export default Swiper;
 
 const Wrapper = styled.div`
   width: 100%;
+  position: relative;
 `;
 
 const Image = styled.img`
@@ -83,6 +85,7 @@ const Navigator = styled.div`
   align-items: end;
   width: 334px;
   transform: translate(40px, -83px);
+  position: absolute;
 `;
 
 const Tabs = styled.div`
