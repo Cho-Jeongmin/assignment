@@ -4,6 +4,9 @@ import emotionNormalize from "emotion-normalize";
 
 const resetStyle = css`
   ${emotionNormalize};
+  * {
+    font-family: "Pretendard" !important;
+  }
   input {
     border: none;
   }
@@ -13,6 +16,11 @@ const resetStyle = css`
   div,
   input {
     box-sizing: border-box;
+  }
+  ,
+  button {
+    background: none;
+    border: none;
   }
 `;
 
