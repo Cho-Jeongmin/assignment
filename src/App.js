@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import GlobalStyle from "./styles/GlobalStyle";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "./styles/theme";
 
 const router = createBrowserRouter([
   {
@@ -12,8 +14,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div>
-      <GlobalStyle />
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </div>
   );
 }
