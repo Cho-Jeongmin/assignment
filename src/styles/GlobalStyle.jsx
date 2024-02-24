@@ -14,13 +14,26 @@ const resetStyle = css`
     outline: none;
   }
   div,
-  input {
+  input,
+  textarea {
     box-sizing: border-box;
   }
   ,
   button {
     background: none;
     border: none;
+  }
+  ,
+  p {
+    margin: 0px;
+  }
+  ,
+  textarea {
+    border: none;
+    resize: none;
+    &:focus {
+      outline: none;
+    }
   }
 `;
 

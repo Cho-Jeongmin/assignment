@@ -16,9 +16,8 @@ const getPageOffset = (page, totalPages, shownPages) => {
   } else return 1;
 };
 
-function Pagination({ page, setPage, shownPosts, totalPosts }) {
+function Pagination({ page, setPage, totalPages }) {
   const shownPages = 6;
-  const totalPages = Math.ceil(totalPosts / shownPosts);
   const pageOffset = getPageOffset(page, totalPages, shownPages);
 
   const prevPage = () => {
