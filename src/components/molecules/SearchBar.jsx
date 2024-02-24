@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { ReactComponent as DeleteIcon } from "../assets/icons/delete.svg";
-import { ReactComponent as SearchIcon } from "../assets/icons/search.svg";
+import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
+import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 
 function SearchBar(props) {
   return (

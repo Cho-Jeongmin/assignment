@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import React from "react";
-import PathBar from "../components/PathBar";
-import SearchBar from "../components/SearchBar";
-import Swiper from "../components/Swiper";
+import PathBar from "../components/molecules/PathBar";
+import SearchBar from "../components/molecules/SearchBar";
+import Swiper from "../components/organisms/Swiper";
 
-function PostListPage(props) {
+function HomePage(props) {
   return (
     <Wrapper>
       <Swiper />
@@ -16,7 +16,7 @@ function PostListPage(props) {
   );
 }
 
-export default PostListPage;
+export default HomePage;
 
 const Wrapper = styled.div`
   display: flex;

@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PostListPage from "./pages/PostListPage";
+import HomePage from "./pages/HomePage";
 import GlobalStyle from "./styles/GlobalStyle";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PostListPage />,
+    element: <HomePage />,
   },
 ]);
 

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { ReactComponent as HomeIcon } from "../assets/icons/home.svg";
-import { ReactComponent as PathArrowIcon } from "../assets/icons/pathArrow.svg";
+import { ReactComponent as HomeIcon } from "../../assets/icons/home.svg";
+import { ReactComponent as PathArrowIcon } from "../../assets/icons/pathArrow.svg";
 
 function PathBar(props) {
   return (
