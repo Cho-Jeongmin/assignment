@@ -2,15 +2,16 @@ import styled from "@emotion/styled";
 import React from "react";
 import { ReactComponent as HomeIcon } from "../../assets/icons/home.svg";
 import { ReactComponent as PathArrowIcon } from "../../assets/icons/pathArrow.svg";
+import { colors } from "../../styles/colors";
 
 function PathBar(props) {
   return (
     <Wrapper>
       <HomeIcon />
       <PathArrowIcon />
-      <Text $color="#23282e">게시판</Text>
+      <Text $color={colors.grayscale90}>게시판</Text>
       <PathArrowIcon />
-      <Text $color="#006cff">공지사항</Text>
+      <Text $color={colors.darkBlue}>공지사항</Text>
     </Wrapper>
   );
 }
@@ -27,14 +28,7 @@ const Wrapper = styled.div`
 `;
 
 const Text = styled.div`
-  /* Title/H7/semibold */
-  font-family: "Pretendard";
-  font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  line-height: 16px;
-  /* identical to box height, or 100% */
-
-  /* gray scale/90 */
   color: ${(props) => props.$color};
 `;
