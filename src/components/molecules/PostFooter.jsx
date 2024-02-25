@@ -44,7 +44,9 @@ function PostFooter({ postId, likes }) {
       </Button>
       <Text textStyle={heartCountStyle}>{likeCount}</Text>
       <SLink to="/">
-        <Button theme="outlined">목록으로 돌아가기</Button>
+        <Button variant="outlined" buttonStyle={prevButtonStyle}>
+          목록으로 돌아가기
+        </Button>
       </SLink>
     </Wrapper>
   );
@@ -57,6 +59,13 @@ const Wrapper = styled.div`
   width: auto;
   justify-content: flex-end;
   align-items: center;
+`;
+
+const prevButtonStyle = css`
+  width: 181px;
+  height: 46px;
+  font-size: 19px;
+  font-weight: 500;
 `;
 
 const heartCountStyle = css`

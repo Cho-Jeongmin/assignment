@@ -11,6 +11,9 @@ function CommentCreator({ setComments }) {
   const [comment, setComment] = useState({ content: "", nickname: "" });
   const [label, setLabel] = useState("");
 
+  const isValidComment = (comment) =>
+    comment.content !== "" && comment.nickname.length >= 4;
+
   const onChangeContent = (e) => {
     let value = e.target.value;
     if (value.length >= 400) value = value.slice(0, 400); // 글자수 제한
@@ -42,8 +45,6 @@ function CommentCreator({ setComments }) {
           ]);
           setComment({ content: "", nickname: "" });
         } catch (err) {
-          // 롤백
-          // setComments((prev) => prev.slice(0, prev.length - 1));
           console.log(err);
         }
       } else {
@@ -67,11 +68,17 @@ function CommentCreator({ setComments }) {
           name="nickname"
           value={comment.nickname}
           onChange={onChangeNicname}
+          onEnter={onClickRegister}
           placeholder="닉네임을 입력해주세요."
           maxlength="10"
         />
         {label}
-        <Button theme="basic" onClick={onClickRegister}>
+        <Button
+          variant="basic"
+          state={isValidComment(comment) ? "enabled" : "disabled"}
+          buttonStyle={registerButtonStyle}
+          onClick={onClickRegister}
+        >
           등록
         </Button>
       </Footer>
@@ -121,4 +128,11 @@ const nicknameInputStyle = css`
     font-weight: 400;
     font-size: 14px;
   }
+`;
+
+const registerButtonStyle = css`
+  width: 57px;
+  height: 32px;
+  font-weight: 600px;
+  font-size: 14px;
 `;

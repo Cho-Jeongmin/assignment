@@ -7,21 +7,35 @@ import PostList from "../molecules/PostList";
 import PostListHeader from "../molecules/PostListHeader";
 import SearchBar from "../molecules/SearchBar";
 
-function PostListSection({ posts, onSearch }) {
+function PostListSection({ posts, setPosts, allPosts }) {
+  // 페이지네이션 데이터
   const [page, setPage] = useState(1);
   const shownPosts = 4;
-  const sliceData = (posts) =>
+  const slicePosts = (posts) =>
     posts.slice((page - 1) * shownPosts, page * shownPosts);
+
+  // 게시글 검색 기능
+  const onSearch = (keyword) => {
+    if (keyword !== "") {
+      const filteredPosts = allPosts.filter((post) =>
+        post.title.toLowerCase().includes(keyword.toLowerCase())
+      );
+      setPosts(filteredPosts);
+    } else {
+      setPosts(allPosts);
+    }
+    setPage(1);
+  };
 
   return (
     <Main>
       <PathBar />
       <SearchBarWrapper>
-        <SearchBar onSearch={onSearch} setPage={setPage} />
+        <SearchBar onSearch={onSearch} />
       </SearchBarWrapper>
       <div>
         <PostListHeader />
-        <PostList posts={sliceData(posts)} />
+        <PostList posts={slicePosts(posts)} />
       </div>
       <PaginationWrapper>
         <Pagination

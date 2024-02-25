@@ -34,28 +34,29 @@ function Pagination({ page, setPage, totalPages }) {
 
   return (
     <Wrapper>
-      <Button buttonStyle={arrowButtonStyle} onClick={startPage}>
+      <Button buttonStyle={arrowButtonStyle} state="hover" onClick={startPage}>
         <DoubleArrowBackIcon />
       </Button>
-      <Button buttonStyle={arrowButtonStyle} onClick={prevPage}>
+      <Button buttonStyle={arrowButtonStyle} state="hover" onClick={prevPage}>
         <ArrowBackIcon />
       </Button>
       {Array(Math.min(shownPages, totalPages))
         .fill(0)
         .map((_, index) => (
           <Button
-            theme="circle"
-            selected={index + pageOffset == page}
+            variant="circle"
+            state={index + pageOffset == page ? "selected" : "hover"}
+            buttonStyle={pageButtonStyle}
             onClick={() => setPage(index + pageOffset)}
             key={index}
           >
             {index + pageOffset}
           </Button>
         ))}
-      <Button buttonStyle={arrowButtonStyle} onClick={nextPage}>
+      <Button buttonStyle={arrowButtonStyle} state="hover" onClick={nextPage}>
         <ArrowForwardIcon />
       </Button>
-      <Button buttonStyle={arrowButtonStyle} onClick={endPage}>
+      <Button buttonStyle={arrowButtonStyle} state="hover" onClick={endPage}>
         <DoubleArrowForwardIcon />
       </Button>
     </Wrapper>
@@ -71,11 +72,15 @@ const Wrapper = styled.div`
   gap: 8px;
 `;
 
+const pageButtonStyle = css`
+  width: 32px;
+  height: 32px;
+  font-weight: 600;
+  font-size: 13px;
+`;
+
 const arrowButtonStyle = css`
   width: 32px;
   height: 32px;
   border-radius: 4px;
-  &:hover {
-    background: ${theme.colors.primary5};
-  }
 `;

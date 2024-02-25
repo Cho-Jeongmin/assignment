@@ -1,22 +1,19 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import React from "react";
 import { useState } from "react";
 import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
+import Input from "../atoms/Input";
 
-function SearchBar({ onSearch, setPage }) {
+function SearchBar({ onSearch }) {
   const [keyword, setKeyword] = useState("");
-  const onChange = (e) => setKeyword(e.target.value);
-  const onEnter = (e) => {
-    if (e.key == "Enter") {
-      onSearch(keyword);
-      setPage(1);
-    }
-  };
+
+  const onChangeKeyword = (e) => setKeyword(e.target.value);
+
   const onClickDelete = () => {
     setKeyword("");
     onSearch("");
-    setPage(1);
   };
 
   return (
@@ -24,11 +21,12 @@ function SearchBar({ onSearch, setPage }) {
       <InputWrapper>
         <SSearchIcon />
         <Input
+          inputStyle={searchInputStyle}
           type="text"
           value={keyword}
-          onChange={onChange}
+          onChange={onChangeKeyword}
           placeholder="검색어를 입력해주세요."
-          onKeyDown={onEnter}
+          onEnter={() => onSearch(keyword)}
         />
         <SDeleteIcon $hide={keyword.length == 0} onClick={onClickDelete} />
       </InputWrapper>
@@ -58,7 +56,7 @@ const InputWrapper = styled.div`
   position: relative;
 `;
 
-const Input = styled.input`
+const searchInputStyle = css`
   width: 100%;
   height: 100%;
   border-radius: 14px;

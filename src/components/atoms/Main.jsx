@@ -2,12 +2,12 @@ import styled from "@emotion/styled";
 import React from "react";
 
 function Main({ children }) {
-  return <Wrapper>{children}</Wrapper>;
+  return <Div>{children}</Div>;
 }
 
 export default Main;
 
-const Wrapper = styled.div`
+const Div = styled.div`
   margin-top: 40px;
   display: flex;
   flex-direction: column;

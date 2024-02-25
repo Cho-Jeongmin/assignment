@@ -1,9 +1,11 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import React from "react";
 import { ReactComponent as HomeIcon } from "../../assets/icons/home.svg";
 import { ReactComponent as PathArrowIcon } from "../../assets/icons/pathArrow.svg";
 import { theme } from "../../styles/theme";
 import SLink from "../atoms/SLink";
+import Text from "../atoms/Text";
 
 function PathBar(props) {
   return (
@@ -12,9 +14,9 @@ function PathBar(props) {
         <HomeIcon />
       </SLink>
       <PathArrowIcon />
-      <Text $color={theme.colors.grayscale90}>게시판</Text>
+      <Text textStyle={textStyle}>게시판</Text>
       <PathArrowIcon />
-      <Text $color={theme.colors.darkBlue}>공지사항</Text>
+      <Text textStyle={colorTextStyle}>공지사항</Text>
     </Wrapper>
   );
 }
@@ -30,7 +32,12 @@ const Wrapper = styled.div`
   gap: 4px;
 `;
 
-const Text = styled.div`
+const textStyle = css`
   font-weight: 600;
-  color: ${(props) => props.$color};
+  color: ${theme.colors.grayscale90};
+`;
+
+const colorTextStyle = css`
+  font-weight: 600;
+  color: ${theme.colors.darkBlue};
 `;

@@ -2,12 +2,12 @@ import styled from "@emotion/styled";
 import React from "react";
 
 function Root({ children }) {
-  return <Wrapper>{children}</Wrapper>;
+  return <Div>{children}</Div>;
 }
 
 export default Root;
 
-const Wrapper = styled.div`
+const Div = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   display: flex;

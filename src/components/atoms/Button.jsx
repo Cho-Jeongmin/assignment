@@ -1,53 +1,56 @@
 /** @jsxImportSource @emotion/react */
+import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import React from "react";
 import { hoverPointer } from "../../styles/common";
 import { theme } from "../../styles/theme";
 
-function Button({ buttonStyle, theme, selected, onClick, children }) {
+function Button({ buttonStyle, variant, state, children, ...rest }) {
   return (
-    <Wrapper
-      css={[buttonStyle, themes[theme]]}
-      $selected={selected}
-      onClick={onClick}
-    >
+    <Btn css={[variants[variant], states[state], buttonStyle]} {...rest}>
       {children}
-    </Wrapper>
+    </Btn>
   );
 }
 
 export default Button;
 
-const Wrapper = styled.button`
+const Btn = styled.button`
   ${hoverPointer}
-  ${({ $selected, theme }) =>
-    $selected && `background: ${theme.colors.primary1}; color: white`};
 `;
 
-const themes = {
+const variants = {
+  basic: css`
+    border-radius: 10px;
+  `,
   circle: css`
-    width: 32px;
-    height: 32px;
     border-radius: 50%;
   `,
-
   outlined: css`
-    font-size: 19px;
-    font-weight: 500;
-    width: 181px;
-    height: 46px;
     border: 1px solid black;
     border-radius: 10px;
   `,
+};
 
-  basic: css`
-    width: 57px;
-    height: 32px;
-    background: ${theme.colors.primary1};
+const states = {
+  enabled: css`
     color: white;
-    font-weight: 600px;
-    font-size: 14px;
-    border-radius: 10px;
+    background: ${theme.colors.primary1};
+  `,
+  selected: css`
+    color: white;
+    background: ${theme.colors.primary1};
+  `,
+  hover: css`
+    &:hover {
+      background: ${theme.colors.primary5};
+    }
+  `,
+  disabled: css`
+    color: white;
+    background: ${theme.colors.grayscale40};
+    &:hover {
+      cursor: default;
+    }
   `,
 };

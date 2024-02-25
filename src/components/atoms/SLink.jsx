@@ -9,8 +9,8 @@ function SLink({ to, children }) {
 export default SLink;
 
 const Wrapper = styled(Link)`
-  display: flex;
-  align-items: center;
   text-decoration: none;
   color: black;
+  display: flex;
+  align-items: center;
 `;
