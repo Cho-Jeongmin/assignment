@@ -57,11 +57,16 @@ function Swiper(props) {
 export default Swiper;
 
 const Wrapper = styled.div`
-  width: 100%;
   position: relative;
+  @media (max-width: 479px) {
+    width: 479px;
+  }
+  @media (min-width: 480px) {
+    width: 100%;
+  }
 `;
 
 const Image = styled.img`
-  height: 528px;
   object-fit: cover;
+  aspect-ratio: 2.72 / 1;
 `;

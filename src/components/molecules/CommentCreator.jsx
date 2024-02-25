@@ -1,20 +1,79 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-function CommentCreator(props) {
+function CommentCreator({ setComments }) {
+  const { id } = useParams();
+  const [comment, setComment] = useState({ content: "", nickname: "" });
+  const [label, setLabel] = useState("");
+
+  const onChangeContent = (e) => {
+    let value = e.target.value;
+    if (value.length >= 400) value = value.slice(0, 400); // 글자수 제한
+    setComment((prev) => ({ ...prev, content: value }));
+  };
+
+  const onChangeNicname = (e) => {
+    const value = e.target.value;
+    setComment((prev) => ({ ...prev, nickname: value }));
+    if (value.length >= 1 && value.length <= 3)
+      setLabel("닉네임을 4글자 이상 입력해주세요.");
+    else setLabel("");
+  };
+
+  const getCreatedAt = () => {
+    const date = new Date(Date.now()).toISOString();
+    return String(date);
+  };
+
+  const onClickRegister = async (e) => {
+    if (comment.content !== "") {
+      if (comment.nickname.length >= 4) {
+        try {
+          await axios.post(
+            `http://localhost:8800/posts/${id}/comments`,
+            comment
+          );
+          setComments((prev) => [
+            ...prev,
+            { ...comment, createdAt: getCreatedAt() },
+          ]); // 낙관적 업데이트
+          setComment({ content: "", nickname: "" });
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        setLabel("닉네임을 4글자 이상 입력해주세요.");
+      }
+    }
+  };
+
   return (
     <Wrapper>
-      <TextArea placeholder="소중한 댓글을 남겨주세요."></TextArea>
+      <TextArea
+        name="content"
+        value={comment.content}
+        onChange={onChangeContent}
+        placeholder="소중한 댓글을 남겨주세요."
+      ></TextArea>
       <Footer>
         <Input
           inputStyle={nicknameInputStyle}
           type="text"
+          name="nickname"
+          value={comment.nickname}
+          onChange={onChangeNicname}
           placeholder="닉네임을 입력해주세요."
+          maxlength="10"
         />
-        <Button theme="basic">등록</Button>
+        {label}
+        <Button theme="basic" onClick={onClickRegister}>
+          등록
+        </Button>
       </Footer>
     </Wrapper>
   );
@@ -38,6 +97,7 @@ const Footer = styled.div`
   height: 32px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const TextArea = styled.textarea`
@@ -48,7 +108,6 @@ const TextArea = styled.textarea`
   &::placeholder {
     font-weight: 500;
     font-size: 18px;
-    color: ${({ theme }) => theme.colors.grayscale60};
   }
 `;
 
@@ -61,6 +120,5 @@ const nicknameInputStyle = css`
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
-    color: ${({ theme }) => theme.colors.grayscale60};
   }
 `;

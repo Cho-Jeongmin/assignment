@@ -1,6 +1,7 @@
 import React from "react";
 import { css, Global } from "@emotion/react";
 import emotionNormalize from "emotion-normalize";
+import { theme } from "./theme";
 
 const resetStyle = css`
   ${emotionNormalize};
@@ -34,6 +35,10 @@ const resetStyle = css`
     &:focus {
       outline: none;
     }
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: ${theme.colors.grayscale60};
   }
 `;
 

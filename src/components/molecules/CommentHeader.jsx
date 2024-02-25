@@ -4,11 +4,11 @@ import React from "react";
 import Text from "../atoms/Text";
 import { theme } from "./../../styles/theme";
 
-function CommentHeader(props) {
+function CommentHeader({ commentCount }) {
   return (
     <Wrapper>
       <Text textStyle={textStyle}>댓글</Text>
-      <Text textStyle={[textStyle, NumberStyle]}>124</Text>
+      <Text textStyle={[textStyle, NumberStyle]}>{commentCount}</Text>
     </Wrapper>
   );
 }

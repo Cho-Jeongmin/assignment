@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import React from "react";
 import { theme } from "../../styles/theme";
+import { getDate } from "../../utils/date";
 import Text from "../atoms/Text";
 
 function CommentItem({ comment }) {
@@ -9,8 +10,10 @@ function CommentItem({ comment }) {
     <Wrapper>
       <Text textStyle={contentStyle}>{comment.content}</Text>
       <Footer>
-        <Text textStyle={nicknameStyle}>{comment.nickname}</Text>
-        <Text textStyle={dateStyle}>{comment.createdAt}</Text>
+        <Text textStyle={nicknameStyle}>
+          {comment.nickname.substring(0, comment.nickname.length - 2) + "**"}
+        </Text>
+        <Text textStyle={dateStyle}>{getDate(comment.createdAt)}</Text>
       </Footer>
     </Wrapper>
   );
@@ -23,7 +26,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 225px;
+  /* height: 225px; */
   background: ${({ theme }) => theme.colors.grayscale12};
   border-radius: 12px;
   border: 1px solid ${({ theme }) => theme.colors.grayscale30};
@@ -45,6 +48,8 @@ const Footer = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  padding-top: 16.5px;
+  padding-bottom: 18.5px;
   border-top: 1px solid ${({ theme }) => theme.colors.grayscale20};
 `;
 

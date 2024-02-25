@@ -3,11 +3,14 @@ import React from "react";
 import { ReactComponent as HomeIcon } from "../../assets/icons/home.svg";
 import { ReactComponent as PathArrowIcon } from "../../assets/icons/pathArrow.svg";
 import { theme } from "../../styles/theme";
+import SLink from "../atoms/SLink";
 
 function PathBar(props) {
   return (
     <Wrapper>
-      <HomeIcon />
+      <SLink to="/">
+        <HomeIcon />
+      </SLink>
       <PathArrowIcon />
       <Text $color={theme.colors.grayscale90}>게시판</Text>
       <PathArrowIcon />

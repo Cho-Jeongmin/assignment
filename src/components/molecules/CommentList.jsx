@@ -6,7 +6,7 @@ function CommentList({ comments }) {
   return (
     <Wrapper>
       {comments.map((comment) => (
-        <CommentItem comment={comment} />
+        <CommentItem comment={comment} key={comment.id} />
       ))}
     </Wrapper>
   );

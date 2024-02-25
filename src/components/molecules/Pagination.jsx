@@ -10,10 +10,13 @@ import { theme } from "../../styles/theme";
 import Button from "../atoms/Button";
 
 const getPageOffset = (page, totalPages, shownPages) => {
-  if (page - shownPages / 2 >= 1) {
-    if (page <= totalPages - shownPages / 2) return page - shownPages / 2;
-    else return totalPages - shownPages + 1;
-  } else return 1;
+  if (totalPages < shownPages) return 1;
+  else {
+    if (page - shownPages / 2 >= 1) {
+      if (page <= totalPages - shownPages / 2) return page - shownPages / 2;
+      else return totalPages - shownPages + 1;
+    } else return 1;
+  }
 };
 
 function Pagination({ page, setPage, totalPages }) {
@@ -37,7 +40,7 @@ function Pagination({ page, setPage, totalPages }) {
       <Button buttonStyle={arrowButtonStyle} onClick={prevPage}>
         <ArrowBackIcon />
       </Button>
-      {Array(shownPages)
+      {Array(Math.min(shownPages, totalPages))
         .fill(0)
         .map((_, index) => (
           <Button

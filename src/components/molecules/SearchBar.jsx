@@ -1,15 +1,36 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { useState } from "react";
 import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 
-function SearchBar(props) {
+function SearchBar({ onSearch, setPage }) {
+  const [keyword, setKeyword] = useState("");
+  const onChange = (e) => setKeyword(e.target.value);
+  const onEnter = (e) => {
+    if (e.key == "Enter") {
+      onSearch(keyword);
+      setPage(1);
+    }
+  };
+  const onClickDelete = () => {
+    setKeyword("");
+    onSearch("");
+    setPage(1);
+  };
+
   return (
     <Wrapper>
       <InputWrapper>
         <SSearchIcon />
-        <Input type="text" />
-        <SDeleteIcon />
+        <Input
+          type="text"
+          value={keyword}
+          onChange={onChange}
+          placeholder="검색어를 입력해주세요."
+          onKeyDown={onEnter}
+        />
+        <SDeleteIcon $hide={keyword.length == 0} onClick={onClickDelete} />
       </InputWrapper>
     </Wrapper>
   );
@@ -55,4 +76,5 @@ const SDeleteIcon = styled(DeleteIcon)`
   &:hover {
     cursor: pointer;
   }
+  display: ${({ $hide }) => $hide && "none"};
 `;

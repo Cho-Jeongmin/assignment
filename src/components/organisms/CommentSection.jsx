@@ -7,28 +7,13 @@ import CommentList from "../molecules/CommentList";
 import CommentHeader from "./../molecules/CommentHeader";
 import axios from "axios";
 
-function CommentSection(props) {
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    const fetchAllComments = async () => {
-      try {
-        const res = await axios.get("http://localhost:8800/comments");
-        console.log(res.data);
-        setComments(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchAllComments();
-  }, []);
-
+function CommentSection({ comments, setComments }) {
   return (
     <Wrapper>
       <CommentHeaderWrapper>
-        <CommentHeader />
+        <CommentHeader commentCount={comments.length} />
       </CommentHeaderWrapper>
-      <CommentCreator />
+      <CommentCreator setComments={setComments} />
       <CommentList comments={comments} />
     </Wrapper>
   );

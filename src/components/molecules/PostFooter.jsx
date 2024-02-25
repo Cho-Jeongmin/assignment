@@ -1,18 +1,48 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect } from "react";
 import { ReactComponent as HeartFullIcon } from "../../assets/icons/heartFull.svg";
 import { ReactComponent as HeartEmptyIcon } from "../../assets/icons/heartEmpty.svg";
 import Text from "../atoms/Text";
 import Button from "../atoms/Button";
 import { css } from "@emotion/react";
 import { theme } from "../../styles/theme";
+import SLink from "../atoms/SLink";
+import { useState } from "react";
+import axios from "axios";
 
-function PostFooter(props) {
+function PostFooter({ postId, likes }) {
+  const initialLiked = JSON.parse(localStorage.getItem("liked" + postId));
+  const [likeCount, setLikeCount] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    setLikeCount(likes);
+  }, [likes]);
+
+  useEffect(() => {
+    setLiked(initialLiked);
+  }, [initialLiked]);
+
+  const onClickHeart = async () => {
+    // 프론트상 좋아요 숫자 증감
+    if (liked) setLikeCount((prev) => prev - 1);
+    else setLikeCount((prev) => prev + 1);
+    // 로컬스토리지와 서버에 반영
+    localStorage.setItem("liked" + postId, JSON.stringify(!liked));
+    await axios.put(`http://localhost:8800/posts/${postId}/likes`, {
+      isAdding: !liked,
+    });
+  };
+
   return (
     <Wrapper>
-      <HeartFullIcon />
-      <Text textStyle={heartCountStyle}>234</Text>
-      <Button theme="outlined">목록으로 돌아가기</Button>
+      <Button onClick={onClickHeart}>
+        {liked ? <HeartFullIcon /> : <HeartEmptyIcon />}
+      </Button>
+      <Text textStyle={heartCountStyle}>{likeCount}</Text>
+      <SLink to="/">
+        <Button theme="outlined">목록으로 돌아가기</Button>
+      </SLink>
     </Wrapper>
   );
 }

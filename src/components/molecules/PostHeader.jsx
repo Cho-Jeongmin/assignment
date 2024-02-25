@@ -2,15 +2,16 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import React from "react";
 import { theme } from "../../styles/theme";
+import { getDate } from "../../utils/date";
 import Text from "../atoms/Text";
 
-function PostHeader(props) {
+function PostHeader({ title, createdAt }) {
   return (
     <Wrapper>
-      <Text
-        textStyle={titleStyle}
-      >{`연말 연휴 휴무 공지 (2023.12.25 - 2024.01.02)`}</Text>
-      <Text textStyle={dateStyle}>2023. 11. 22 10:04:26</Text>
+      <Text textStyle={titleStyle}>{title}</Text>
+      <Text textStyle={dateStyle}>
+        {createdAt && getDate(createdAt, true, true)}
+      </Text>
     </Wrapper>
   );
 }

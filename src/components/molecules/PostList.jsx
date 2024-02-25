@@ -1,10 +1,10 @@
 import React from "react";
 import PostItem from "./PostItem";
 
-function PostList({ postList }) {
+function PostList({ posts }) {
   return (
     <div>
-      {postList.map((post, index) => (
+      {posts.map((post, index) => (
         <PostItem post={post} key={index} />
       ))}
     </div>

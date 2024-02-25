@@ -7,27 +7,27 @@ import PostList from "../molecules/PostList";
 import PostListHeader from "../molecules/PostListHeader";
 import SearchBar from "../molecules/SearchBar";
 
-function PostListSection({ postList }) {
+function PostListSection({ posts, onSearch }) {
   const [page, setPage] = useState(1);
   const shownPosts = 4;
-  const sliceData = (postList) =>
-    postList.slice((page - 1) * shownPosts, page * shownPosts);
+  const sliceData = (posts) =>
+    posts.slice((page - 1) * shownPosts, page * shownPosts);
 
   return (
     <Main>
       <PathBar />
       <SearchBarWrapper>
-        <SearchBar />
+        <SearchBar onSearch={onSearch} setPage={setPage} />
       </SearchBarWrapper>
       <div>
         <PostListHeader />
-        <PostList postList={sliceData(postList)} />
+        <PostList posts={sliceData(posts)} />
       </div>
       <PaginationWrapper>
         <Pagination
           page={page}
           setPage={setPage}
-          totalPages={Math.ceil(postList.length / shownPosts)}
+          totalPages={Math.ceil(posts.length / shownPosts)}
         />
       </PaginationWrapper>
     </Main>

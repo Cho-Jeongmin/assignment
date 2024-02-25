@@ -6,13 +6,13 @@ import PostContent from "../molecules/PostContent";
 import PostFooter from "../molecules/PostFooter";
 import PostHeader from "../molecules/PostHeader";
 
-function PostDetailSection(props) {
+function PostDetailSection({ post }) {
   return (
     <Wrapper>
       <PathBar />
-      <PostHeader />
-      <PostContent />
-      <PostFooter />
+      <PostHeader title={post.title} createdAt={post.createdAt} />
+      <PostContent content={post.content} />
+      <PostFooter postId={post.id} likes={post.likes} />
     </Wrapper>
   );
 }
