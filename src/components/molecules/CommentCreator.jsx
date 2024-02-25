@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { addComment } from "../../api/apis";
 
 function CommentCreator({ setComments }) {
-  const { id } = useParams();
+  const { id: postId } = useParams();
   const [comment, setComment] = useState({ content: "", nickname: "" });
   const [label, setLabel] = useState("");
 
@@ -34,16 +34,16 @@ function CommentCreator({ setComments }) {
     if (comment.content !== "") {
       if (comment.nickname.length >= 4) {
         try {
-          await axios.post(
-            `http://localhost:8800/posts/${id}/comments`,
-            comment
-          );
+          await addComment(postId, comment);
+          // 낙관적 업데이트
           setComments((prev) => [
             ...prev,
             { ...comment, createdAt: getCreatedAt() },
-          ]); // 낙관적 업데이트
+          ]);
           setComment({ content: "", nickname: "" });
         } catch (err) {
+          // 롤백
+          // setComments((prev) => prev.slice(0, prev.length - 1));
           console.log(err);
         }
       } else {

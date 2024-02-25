@@ -4,7 +4,6 @@ import { theme } from "../../styles/theme";
 import Text from "../atoms/Text";
 
 function PostContent({ content }) {
-  console.log("content", content);
   return (
     <div>
       <Text textStyle={contentStyle}>{content}</Text>

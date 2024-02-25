@@ -1,11 +1,8 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
 import CommentCreator from "../molecules/CommentCreator";
 import CommentList from "../molecules/CommentList";
 import CommentHeader from "./../molecules/CommentHeader";
-import axios from "axios";
 
 function CommentSection({ comments, setComments }) {
   return (

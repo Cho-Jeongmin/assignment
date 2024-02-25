@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React from "react";
-import Main from "../atoms/Main";
 import PathBar from "../molecules/PathBar";
 import PostContent from "../molecules/PostContent";
 import PostFooter from "../molecules/PostFooter";

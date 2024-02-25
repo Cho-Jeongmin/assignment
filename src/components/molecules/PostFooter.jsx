@@ -8,7 +8,7 @@ import { css } from "@emotion/react";
 import { theme } from "../../styles/theme";
 import SLink from "../atoms/SLink";
 import { useState } from "react";
-import axios from "axios";
+import { toggleLike } from "../../api/apis";
 
 function PostFooter({ postId, likes }) {
   const initialLiked = JSON.parse(localStorage.getItem("liked" + postId));
@@ -27,11 +27,14 @@ function PostFooter({ postId, likes }) {
     // 프론트상 좋아요 숫자 증감
     if (liked) setLikeCount((prev) => prev - 1);
     else setLikeCount((prev) => prev + 1);
-    // 로컬스토리지와 서버에 반영
+    // 로컬스토리지에 좋아요 여부 업데이트
     localStorage.setItem("liked" + postId, JSON.stringify(!liked));
-    await axios.put(`http://localhost:8800/posts/${postId}/likes`, {
-      isAdding: !liked,
-    });
+    // 서버에 좋아요 여부 업데이트
+    try {
+      await toggleLike(postId, liked);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

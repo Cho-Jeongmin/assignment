@@ -3,23 +3,23 @@ import Swiper from "../components/organisms/Swiper";
 import Root from "../components/atoms/Root";
 import PostListSection from "../components/organisms/PostListSection";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getAllPosts } from "../api/apis";
 
 function HomePage(props) {
   const [allPosts, setAllPosts] = useState([]);
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
-    const getchAllPosts = async () => {
+    const fetchAllPosts = async () => {
       try {
-        const req = await axios.get("http://localhost:8800/posts");
-        console.log("posts", req.data);
+        const req = await getAllPosts();
         setAllPosts(req.data);
         setPosts(req.data);
       } catch (err) {
         console.log(err);
       }
     };
-    getchAllPosts();
+    fetchAllPosts();
   }, []);
 
   const onSearch = (keyword) => {

@@ -4,18 +4,17 @@ import Wrapper from "../components/atoms/Root";
 import CommentSection from "../components/organisms/CommentSection";
 import PostDetailSection from "../components/organisms/PostDetailSection";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { getOnePost } from "../api/apis";
 
 function PostDetailPage(props) {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
-  const { id } = useParams();
+  const { id: postId } = useParams();
 
   useEffect(() => {
     const fetchOnePost = async () => {
       try {
-        const res = await axios.get(`http://localhost:8800/posts/${id}`);
-        console.log("post and omments", res.data);
+        const res = await getOnePost(postId);
         setPost(res.data.post);
         setComments(res.data.comments);
       } catch (err) {
