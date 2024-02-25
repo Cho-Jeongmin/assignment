@@ -7,7 +7,11 @@ import { theme } from "../../styles/theme";
 
 function Button({ buttonStyle, variant, state, children, ...rest }) {
   return (
-    <Btn css={[variants[variant], states[state], buttonStyle]} {...rest}>
+    <Btn
+      css={[variants[variant], states[state], buttonStyle]}
+      disabled={state === "disabled"}
+      {...rest}
+    >
       {children}
     </Btn>
   );

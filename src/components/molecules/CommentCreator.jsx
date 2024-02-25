@@ -5,14 +5,14 @@ import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 import { useParams } from "react-router-dom";
 import { addComment } from "../../api/apis";
+import Text from "./../atoms/Text";
+import { theme } from "../../styles/theme";
+import { hideScrollBar } from "../../styles/common";
 
-function CommentCreator({ setComments }) {
+function CommentCreator({ setComments, scrollToBottom }) {
   const { id: postId } = useParams();
   const [comment, setComment] = useState({ content: "", nickname: "" });
-  const [label, setLabel] = useState("");
-
-  const isValidComment = (comment) =>
-    comment.content !== "" && comment.nickname.length >= 4;
+  const [isValidNickname, setIsValidNickname] = useState(true);
 
   const onChangeContent = (e) => {
     let value = e.target.value;
@@ -23,9 +23,7 @@ function CommentCreator({ setComments }) {
   const onChangeNicname = (e) => {
     const value = e.target.value;
     setComment((prev) => ({ ...prev, nickname: value }));
-    if (value.length >= 1 && value.length <= 3)
-      setLabel("닉네임을 4글자 이상 입력해주세요.");
-    else setLabel("");
+    setIsValidNickname(true);
   };
 
   const getCreatedAt = () => {
@@ -33,9 +31,11 @@ function CommentCreator({ setComments }) {
     return String(date);
   };
 
+  // 댓글 등록 핸들러
   const onClickRegister = async (e) => {
     if (comment.content !== "") {
       if (comment.nickname.length >= 4) {
+        setIsValidNickname(true);
         try {
           await addComment(postId, comment);
           // 낙관적 업데이트
@@ -44,11 +44,12 @@ function CommentCreator({ setComments }) {
             { ...comment, createdAt: getCreatedAt() },
           ]);
           setComment({ content: "", nickname: "" });
+          scrollToBottom();
         } catch (err) {
           console.log(err);
         }
       } else {
-        setLabel("닉네임을 4글자 이상 입력해주세요.");
+        setIsValidNickname(false);
       }
     }
   };
@@ -62,20 +63,24 @@ function CommentCreator({ setComments }) {
         placeholder="소중한 댓글을 남겨주세요."
       ></TextArea>
       <Footer>
-        <Input
-          inputStyle={nicknameInputStyle}
-          type="text"
-          name="nickname"
-          value={comment.nickname}
-          onChange={onChangeNicname}
-          onEnter={onClickRegister}
-          placeholder="닉네임을 입력해주세요."
-          maxlength="10"
-        />
-        {label}
+        <div>
+          <Input
+            inputStyle={nicknameInputStyle}
+            type="text"
+            name="nickname"
+            value={comment.nickname}
+            onChange={onChangeNicname}
+            onEnter={onClickRegister}
+            placeholder="닉네임을 입력해주세요."
+            maxlength="10"
+          />
+          <Text textStyle={errorMessageStyle}>
+            {!isValidNickname && "닉네임을 4글자 이상 입력해주세요."}
+          </Text>
+        </div>
         <Button
           variant="basic"
-          state={isValidComment(comment) ? "enabled" : "disabled"}
+          state={"enabled"}
           buttonStyle={registerButtonStyle}
           onClick={onClickRegister}
         >
@@ -116,6 +121,7 @@ const TextArea = styled.textarea`
     font-weight: 500;
     font-size: 18px;
   }
+  ${hideScrollBar};
 `;
 
 const nicknameInputStyle = css`
@@ -135,4 +141,11 @@ const registerButtonStyle = css`
   height: 32px;
   font-weight: 600px;
   font-size: 14px;
+`;
+
+const errorMessageStyle = css`
+  font-size: 13px;
+  position: absolute;
+  transform: translate(0px, 4px);
+  color: ${theme.colors.primary1};
 `;

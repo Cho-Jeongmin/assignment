@@ -61,6 +61,10 @@ const searchInputStyle = css`
   height: 100%;
   border-radius: 14px;
   padding: 10px 46px;
+  &::placeholder {
+    font-weight: 500;
+    font-size: 15px;
+  }
 `;
 
 const SSearchIcon = styled(SearchIcon)`

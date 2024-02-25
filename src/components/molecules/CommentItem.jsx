@@ -40,7 +40,6 @@ const contentStyle = css`
   font-size: 18px;
   line-height: 29px;
   color: ${theme.colors.grayscale70};
-  letter-spacing: -0.0103em;
   padding-bottom: 10px;
 `;
 

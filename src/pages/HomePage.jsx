@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 import Input from "../components/atoms/Input";
 import Button from "../components/atoms/Button";
 import { css } from "@emotion/react";
+import { useScrollToBottom } from "../utils/useScrollToBottom";
 
 function HomePage(props) {
   const [allPosts, setAllPosts] = useState([]);
@@ -31,29 +32,8 @@ function HomePage(props) {
     <Root>
       <Swiper />
       <PostListSection posts={posts} setPosts={setPosts} allPosts={allPosts} />
-      {/* <SInput />
-      <Button theme="basic">Atom 버튼</Button>
-      <Button theme="basic" css={{ background: "red" }}>
-        css prop 적용된 버튼
-      </Button>
-      <Button theme="basic" buttonStyle={buttonStyle}>
-        buttonStyle prop 적용된 버튼
-      </Button>
-      <SButton theme="basic">스타일된 버튼</SButton> */}
     </Root>
   );
 }
 
 export default HomePage;
-
-const SInput = styled(Input)`
-  border: 1px solid red;
-`;
-
-const SButton = styled(Button)`
-  background: red;
-`;
-
-const buttonStyle = css`
-  background: red;
-`;

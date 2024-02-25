@@ -1,8 +1,12 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-function Root({ children }) {
-  return <Div>{children}</Div>;
+function Root({ rootStyle, children, ...rest }) {
+  return (
+    <Div rootStyle={rootStyle} {...rest}>
+      {children}
+    </Div>
+  );
 }
 
 export default Root;

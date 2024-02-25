@@ -4,13 +4,16 @@ import CommentCreator from "../molecules/CommentCreator";
 import CommentList from "../molecules/CommentList";
 import CommentHeader from "./../molecules/CommentHeader";
 
-function CommentSection({ comments, setComments }) {
+function CommentSection({ comments, setComments, scrollToBottom }) {
   return (
     <Wrapper>
       <CommentHeaderWrapper>
         <CommentHeader commentCount={comments.length} />
       </CommentHeaderWrapper>
-      <CommentCreator setComments={setComments} />
+      <CommentCreator
+        setComments={setComments}
+        scrollToBottom={scrollToBottom}
+      />
       <CommentList comments={comments} />
     </Wrapper>
   );

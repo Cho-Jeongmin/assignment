@@ -10,7 +10,7 @@ export default SLink;
 
 const Wrapper = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: inherit;
   display: flex;
   align-items: center;
 `;
